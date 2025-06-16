@@ -97,6 +97,8 @@ footer {
   top: 0;
   left: 0;
   right: 0;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 
 .section:target {
@@ -380,4 +382,3 @@ form button:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
-

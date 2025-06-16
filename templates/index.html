@@ -292,9 +292,13 @@
 
         <!--Input Recipes-->
         <div id="input" class="section">
+          
           <h2>Input Recipes</h2>
                     <form action = "/submit" method = "post" onsubmit = "calculateSteps()">
-            <label for="name">Recipe Name:</label><br />
+
+                  <br /><br />
+                      
+            <label for="name">Recipe Name:</label>
             <input type="text" name = "name" required><br /><br />
 
 
@@ -311,16 +315,21 @@
                 <tr><td><input type="text" name = "measurements" /></td><td><input type="text" name = "ingredients" /></td></tr>
               </tbody>
             </table>
-            <button type="button" onclick="addIngredientRow()">Add Row</button><br /><br />
+            <button type="button" onclick="addIngredientRow()">Add Row</button>
+                      
+                      <br /><br /><br />
 
-            <label>Instructions:</label><br />
+            <label>Instructions:</label>
             <table id="instructions-table" style="width: 100%; margin-bottom: 15px;">
               <tbody>
                 <tr><td><input type="text" name = "steps" placeholder="e.g., Preheat oven to 350°F" style="width: 100%;" /></td></tr>
               </tbody>
             </table>
-            <button type="button" onclick="addInstructionRow()">Add Instruction Row</button><br /><br />
-            <label for="mealType">Recipe Type:</label><br />
+            <button type="button" onclick="addInstructionRow()">Add Instruction Row</button>
+                      
+                      <br /><br /><br />
+                      
+            <label for="mealType">Recipe Type:</label>
               <select name="mealType" required>
                 <option value="">Select a type...</option>
                 <option value="Breakfast">Breakfast</option>
@@ -329,25 +338,37 @@
                 <option value="Dessert">Dessert</option>
                 <option value="Snack">Snack</option>
                 <option value="Side Dish">Side Dish</option>
-              </select><br /><br />
+              </select>
+                      
+                      <br /><br /><br />
 
-              <label for="description">Description:</label><br />
-              <textarea name="description" placeholder="Brief description of the recipe"></textarea><br /><br />
+              <label for="description">Description:</label>
+              <textarea name="description" placeholder="Brief description of the recipe"></textarea>
+                      
+                      <br /><br /><br />
 
-              <label for="servings">Servings:</label><br />
-              <input type="number" name="servings" placeholder="4" min="1"><br /><br />
+              <label for="servings">Servings:</label>
+              <input type="number" name="servings" placeholder="4" min="1">
+                      
+                      <br /><br /><br />
 
-              <label for="time">Total Cook Time:</label><br />
-              <input type="text" name="time" placeholder="e.g., 30 minutes"><br /><br />
+              <label for="time">Total Cook Time:</label>
+              <input type="text" name="time" placeholder="e.g., 30 minutes">
+                      
+                      <br /><br /><br />
 
-              <label for="notes">Notes:</label><br />
-              <textarea name="notes" placeholder="Any additional notes"></textarea><br /><br />
+              <label for="notes">Notes:</label>
+              <textarea name="notes" placeholder="Any additional notes"></textarea>
+                      
+                      <br /><br /><br />
 
-              <label for="freezerMealTF">Freezer Meal?</label><br />
+              <label for="freezerMealTF">Freezer Meal?</label>
               <select name="freezerMealTF">
                 <option value="No">No</option>
                 <option value="Yes">Yes</option>
-              </select><br /><br />
+              </select>
+                      
+                      <br /><br /><br />
 
               <input type="hidden" name="numOfSteps" id="numOfSteps" value="1">
 
