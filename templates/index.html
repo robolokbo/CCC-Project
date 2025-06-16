@@ -224,12 +224,12 @@
       // Hide all meal buttons for this card
       const allMealButtons = document.querySelectorAll(`[id*="-${cardId}"].meal-buttons`);
       allMealButtons.forEach(btn => btn.style.display = 'none');
-      
+
       // Remove active class from all day buttons for this card
       const cardBack = button.parentElement;
       const allDayButtons = cardBack.querySelectorAll('.day-button');
       allDayButtons.forEach(btn => btn.classList.remove('active'));
-      
+
       // Show selected day's meal buttons and make day button active
       const selectedMealButtons = document.getElementById(dayId);
       selectedMealButtons.style.display = 'block';
@@ -259,8 +259,37 @@
       }
     }
 
+    // Theme toggle functionality
+    function toggleTheme() {
+      document.body.classList.toggle('dark-theme');
+
+      // Save theme preference to localStorage
+      const isDarkTheme = document.body.classList.contains('dark-theme');
+      localStorage.setItem('darkTheme', isDarkTheme);
+    }
+
+    // Load saved theme preference on page load
+    function loadTheme() {
+      const savedTheme = localStorage.getItem('darkTheme');
+      if (savedTheme === 'true') {
+        document.body.classList.add('dark-theme');
+      }
+    }
+
     // Highlight active sidebar link
     document.addEventListener('DOMContentLoaded', () => {
+      // Load saved theme
+      loadTheme();
+
+      // Set up theme button click handler
+      const themeButton = document.querySelector('.theme-button');
+      if (themeButton) {
+        themeButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          toggleTheme();
+        });
+      }
+
       const sidebarLinks = document.querySelectorAll('.sidebar a');
       sidebarLinks.forEach(link => {
         link.addEventListener('click', () => {
@@ -282,9 +311,12 @@
       <nav class="sidebar">
         <a href="#input">Input Recipes</a>
         <a href="#view">View Recipes</a>
-        
+
         <a href="#meal">Meal Plan</a>
         <a href="#grocery">Grocery List</a>
+
+        <div class="sidebar-spacer"></div>
+        <a href="#theme" class="theme-button">Theme</a>
       </nav>
 
       <!--Content Area-->
@@ -292,12 +324,12 @@
 
         <!--Input Recipes-->
         <div id="input" class="section">
-          
+
           <h2>Input Recipes</h2>
                     <form action = "/submit" method = "post" onsubmit = "calculateSteps()">
 
                   <br /><br />
-                      
+
             <label for="name">Recipe Name:</label>
             <input type="text" name = "name" required><br /><br />
 
@@ -316,7 +348,7 @@
               </tbody>
             </table>
             <button type="button" onclick="addIngredientRow()">Add Row</button>
-                      
+
                       <br /><br /><br />
 
             <label>Instructions:</label>
@@ -326,9 +358,9 @@
               </tbody>
             </table>
             <button type="button" onclick="addInstructionRow()">Add Instruction Row</button>
-                      
+
                       <br /><br /><br />
-                      
+
             <label for="mealType">Recipe Type:</label>
               <select name="mealType" required>
                 <option value="">Select a type...</option>
@@ -339,27 +371,27 @@
                 <option value="Snack">Snack</option>
                 <option value="Side Dish">Side Dish</option>
               </select>
-                      
+
                       <br /><br /><br />
 
               <label for="description">Description:</label>
               <textarea name="description" placeholder="Brief description of the recipe"></textarea>
-                      
+
                       <br /><br /><br />
 
               <label for="servings">Servings:</label>
               <input type="number" name="servings" placeholder="4" min="1">
-                      
+
                       <br /><br /><br />
 
               <label for="time">Total Cook Time:</label>
               <input type="text" name="time" placeholder="e.g., 30 minutes">
-                      
+
                       <br /><br /><br />
 
               <label for="notes">Notes:</label>
               <textarea name="notes" placeholder="Any additional notes"></textarea>
-                      
+
                       <br /><br /><br />
 
               <label for="freezerMealTF">Freezer Meal?</label>
@@ -367,7 +399,7 @@
                 <option value="No">No</option>
                 <option value="Yes">Yes</option>
               </select>
-                      
+
                       <br /><br /><br />
 
               <input type="hidden" name="numOfSteps" id="numOfSteps" value="1">
@@ -394,7 +426,7 @@
                     <p><strong>Servings:</strong> {{ recipes['servings'][i] }}</p>
                     <p><strong>Cook Time:</strong> {{ recipes['time'][i] }}</p>
                     <p><strong>Freezer Meal:</strong> {{ recipes['freezerMealTF'][i] }}</p>
-                    
+
                     <button class="toggle-btn" onclick="event.stopPropagation(); toggleRecipe('recipe-{{ i }}', this)">Show more</button>
 
                     <div id="recipe-{{ i }}" class="recipe-details hidden">
@@ -418,7 +450,7 @@
                     </div>
                   </div>
                 </div>
-                
+
                 <div class="card-back">
                   <h3>What day do you want this recipe?</h3>
                   <div class="days-container">
@@ -432,7 +464,7 @@
                       <button type="button" class="day-button" onclick="event.stopPropagation(); toggleDay('sunday-{{ i }}', this, {{ i }})">Sunday</button>
                     </form>
                   </div>
-                  
+
                   <div id="monday-{{ i }}" class="meal-buttons" style="display: none;">
                     <form action="/planner" method="post">
                       <input type="hidden" name="day" value="Monday">
@@ -445,7 +477,7 @@
                       <button type="submit" name="meal" value="snack" onclick="event.stopPropagation();">Snack</button>
                     </form>
                   </div>
-                  
+
                   <div id="tuesday-{{ i }}" class="meal-buttons" style="display: none;">
                     <form action="/planner" method="post">
                       <input type="hidden" name="day" value="Tuesday">
@@ -458,7 +490,7 @@
                       <button type="submit" name="meal" value="snack" onclick="event.stopPropagation();">Snack</button>
                     </form>
                   </div>
-                  
+
                   <div id="wednesday-{{ i }}" class="meal-buttons" style="display: none;">
                     <form action="/planner" method="post">
                       <input type="hidden" name="day" value="Wednesday">
@@ -471,7 +503,7 @@
                       <button type="submit" name="meal" value="snack" onclick="event.stopPropagation();">Snack</button>
                     </form>
                   </div>
-                  
+
                   <div id="thursday-{{ i }}" class="meal-buttons" style="display: none;">
                     <form action="/planner" method="post">
                       <input type="hidden" name="day" value="Thursday">
@@ -484,7 +516,7 @@
                       <button type="submit" name="meal" value="snack" onclick="event.stopPropagation();">Snack</button>
                     </form>
                   </div>
-                  
+
                   <div id="friday-{{ i }}" class="meal-buttons" style="display: none;">
                     <form action="/planner" method="post">
                       <input type="hidden" name="day" value="Friday">
@@ -497,7 +529,7 @@
                       <button type="submit" name="meal" value="snack" onclick="event.stopPropagation();">Snack</button>
                     </form>
                   </div>
-                  
+
                   <div id="saturday-{{ i }}" class="meal-buttons" style="display: none;">
                     <form action="/planner" method="post">
                       <input type="hidden" name="day" value="Saturday">
@@ -510,7 +542,7 @@
                       <button type="submit" name="meal" value="snack" onclick="event.stopPropagation();">Snack</button>
                     </form>
                   </div>
-                  
+
                   <div id="sunday-{{ i }}" class="meal-buttons" style="display: none;">
                     <form action="/planner" method="post">
                       <input type="hidden" name="day" value="Sunday">
@@ -529,7 +561,7 @@
             {% endfor %}
           </div>
         </div>
-      
+
 
         <!--Meal Plan-->
         <div id="meal" class="section">
@@ -612,14 +644,14 @@
                 </tr>
               </tbody>
             </table>
-            
+
             <div style="margin-bottom: 20px;">
               <button type="button" onclick="saveGroceryList()">Save List</button>
               <button type="button" onclick="viewGroceryLists()">View Lists</button>
             </div>
 
           </form>
-          
+
           <div id="saved-lists" style="display: none;">
             <h3>Saved Grocery Lists</h3>
             <div id="lists-container"></div>

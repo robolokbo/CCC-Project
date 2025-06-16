@@ -7,6 +7,16 @@
   --highlight: #FFD97D;
   --text: #2E2E2E;
 }
+
+.dark-theme {
+  --primary: #4E2420;
+  --primary-dark: #2C1918;
+  --background: #916421;
+  --panel: #715736;
+  --highlight: #FFD97D;
+  --text: #FFFFFF;
+}
+
 /* Global Reset */
 * {
   margin: 0;
@@ -71,6 +81,10 @@ footer {
   transition: background-color 0.3s;
 }
 
+.sidebar-spacer {
+  flex-grow: 1;
+}
+
 .sidebar a:hover,
 .sidebar a.active {
   background-color: var(--primary-dark);
@@ -84,7 +98,7 @@ footer {
   align-items: flex-start;
   padding: 40px;
   overflow-y: auto;
-  background-color: #ffffff;
+  background-color: var(--background);
   position: relative;
 }
 
@@ -129,6 +143,7 @@ form textarea {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+
 
 form label {
   font-weight: bold;
